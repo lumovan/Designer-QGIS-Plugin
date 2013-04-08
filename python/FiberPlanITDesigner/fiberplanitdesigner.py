@@ -217,7 +217,8 @@ class FiberPlanITDesigner:
         self.settings.setValue('/fiberplanitdesigner/command', command)
 
     def configure(self):
-        output = subprocess.call([self.command, '/configure'])
+        self.ensureConfigured()
+        output = subprocess.call([self.command, '/configure', self.inputdir, self.outputdir])
 
     def configure2(self):
         self.dlg.leInputDir.setText(self.inputdir)
@@ -256,18 +257,20 @@ class FiberPlanITDesigner:
                 self.iface.mapCanvas().setExtent(layer.extent())
                 self.iface.mapCanvas().refresh()
 
-    def callFPI(self, argument):
+    def ensureConfigured(self):
         # test for empty plugin variables
         if  (self.inputdir is None or self.inputdir == '') or (self.outputdir is None or self.outputdir == '') or (self.command is None or self.command == ''):
             self.configure2()
-            return
+
+    def callFPI(self, argument):
+        self.ensureConfigured()
         # first removing all layers (just to be sure ??)
         QgsMapLayerRegistry.instance().removeAllMapLayers()
         # 'close' project first to be sure we do not mess up the projects
         self.iface.newProject() # newProject(False) == default == NO save dialog
         self.iface.mapCanvas().refresh()
         # run FPI with given argument
-        exitcode = subprocess.call([self.command, argument])
+        exitcode = subprocess.call([self.command, argument, self.inputdir, self.outputdir])
         if exitcode > 0:
             QMessageBox.warning(self.iface.mainWindow(), "-", ( QCoreApplication.translate("fiberplanitdesigner","FPI returned an error code: ") + str(exitcode)), QMessageBox.Ok, QMessageBox.Ok)
         else:
