@@ -1,0 +1,33 @@
+<RCC>
+  <qresource prefix="/plugins/fiberplanitdesigner">
+    <file>icons/arrow_divide.png</file>
+    <file>icons/blueprint.png</file>
+    <file>icons/blueprints.png</file>
+    <file>icons/bullet_disk.png</file>
+    <file>icons/cog.png</file>
+    <file>icons/drop.png</file>
+    <file>icons/file_extension_xls.png</file>
+    <file>icons/house.png</file>
+    <file>icons/layer_wms.png</file>
+    <file>icons/lock.png</file>
+    <file>icons/map_go.png</file>
+    <file>icons/map.png</file>
+    <file>icons/networking.png</file>
+    <file>icons/page_excel.png</file>
+    <file>icons/process area.png</file>
+    <file>icons/roadworks.png</file>
+    <file>icons/role.png</file>
+    <file>icons/sitemap_2.png</file>
+    <file>icons/sitemap.png</file>
+    <file>icons/to_do_list_cheked_1.png</file>
+    <file>icons/to_do_list_cheked_all.png</file>
+    <file>icons/to_do_list.png</file>
+    <file>icons/toolbox.png</file>
+    <file>icons/trench.png</file>
+    <file>icons/world.png</file>
+    <file>icons/wrench_orange.png</file>
+    <file>icons/wrench.png</file>
+    <file>icon.png</file>
+  </qresource>
+  <qresource prefix="newPrefix"/>
+</RCC>
