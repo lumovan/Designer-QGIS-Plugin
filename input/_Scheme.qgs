@@ -1,13 +1,13 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="1.9.0-Master">
+<qgis projectname="" version="1.8.0-Lisboa">
     <title></title>
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>97747.725123</xmin>
-            <ymin>193872.803700</ymin>
-            <xmax>104379.836299</xmax>
-            <ymax>199314.796766</ymax>
+            <xmin>102415.942522</xmin>
+            <ymin>197413.166174</ymin>
+            <xmax>104457.475538</xmax>
+            <ymax>198433.932682</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
@@ -24,6 +24,11 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="true">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="processed_PossibleTrenches" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="processed_PossibleTrenches20130219145947149" visible="1"/>
+            </filegroup>
+        </legendlayer>
         <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="processed_BuildingsNotConnected" showFeatureCount="0">
             <filegroup open="false" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="processed_BuildingsNotConnected20130207095137796" visible="1"/>
@@ -39,9 +44,9 @@
                 <legendlayerfile isInOverview="0" layerid="IN_DropEdges20130207094753335" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="IN_AddressPoints" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="IN_AddressPoints" showFeatureCount="0">
             <filegroup open="false" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="IN_AddressPoints20130207094752958" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="IN_AddressPoints20130207094752958" visible="1"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="IN_CentralOffice" showFeatureCount="0">
@@ -60,10 +65,10 @@
             </filegroup>
         </legendlayer>
     </legend>
-    <projectlayers layercount="7">
+    <projectlayers layercount="8">
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0">
             <id>IN_AddressPoints20130207094752958</id>
-            <datasource>./IN_AddressPoints.shp</datasource>
+            <datasource>./IN_DemandPoints.shp</datasource>
             <title></title>
             <abstract></abstract>
             <layername>IN_AddressPoints</layername>
@@ -91,13 +96,12 @@
                             <prop k="color_border" v="0,0,0,255"/>
                             <prop k="name" v="circle"/>
                             <prop k="offset" v="0,0"/>
-                            <prop k="scale_method" v="area"/>
                             <prop k="size" v="2"/>
                         </layer>
                     </symbol>
                 </symbols>
                 <rotation field=""/>
-                <sizescale field="" scalemethod="area"/>
+                <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
             <displayfield>P2P_HOMES</displayfield>
@@ -129,9 +133,6 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
@@ -163,9 +164,9 @@
                     <pointsymbol>svg:/gpsicons/city_building.svg</pointsymbol>
                     <pointsize>4.5</pointsize>
                     <pointsizeunits>pixels</pointsizeunits>
-                    <rotationclassificationfieldname null="1"></rotationclassificationfieldname>
-                    <scaleclassificationfieldname null="1"></scaleclassificationfieldname>
-                    <symbolfieldname null="1"></symbolfieldname>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
                     <outlinecolor red="0" blue="0" green="0"/>
                     <outlinestyle>SolidLine</outlinestyle>
                     <outlinewidth>0.26</outlinewidth>
@@ -203,14 +204,11 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0">
             <id>IN_DropEdges20130207094753335</id>
-            <datasource>./IN_DropEdges.shp</datasource>
+            <datasource>./IN_DropTrenches.shp</datasource>
             <title></title>
             <abstract></abstract>
             <layername>IN_DropEdges</layername>
@@ -245,7 +243,7 @@
                     </symbol>
                 </symbols>
                 <rotation field=""/>
-                <sizescale field="" scalemethod="area"/>
+                <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
             <displayfield>INCLUDE</displayfield>
@@ -273,9 +271,6 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0">
@@ -315,7 +310,7 @@
                     </symbol>
                 </symbols>
                 <rotation field=""/>
-                <sizescale field="" scalemethod="area"/>
+                <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
             <displayfield>ID</displayfield>
@@ -351,9 +346,6 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0">
@@ -365,10 +357,10 @@
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=lcc +lat_1=49.8333339 +lat_2=51.16666733333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs</proj4>
-                    <srsid>100010</srsid>
+                    <srsid>100007</srsid>
                     <srid>0</srid>
-                    <authid>USER:100010</authid>
-                    <description> * Generated CRS (+proj=lcc +lat_1=49.8333339 +lat_2=51.16666733333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs)</description>
+                    <authid>USER:100007</authid>
+                    <description> * Automatisch aangemaakte CRS (+proj=lcc +lat_1=49.8333339 +lat_2=51.16666733333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs)</description>
                     <projectionacronym>lcc</projectionacronym>
                     <ellipsoidacronym>intl</ellipsoidacronym>
                     <geographicflag>false</geographicflag>
@@ -393,7 +385,7 @@
                     </symbol>
                 </symbols>
                 <rotation field=""/>
-                <sizescale field="" scalemethod="area"/>
+                <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
             <displayfield>STREET</displayfield>
@@ -427,9 +419,6 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
@@ -457,8 +446,8 @@
                 <symbols>
                     <symbol outputUnit="MM" alpha="0.247059" type="fill" name="0">
                         <layer pass="0" class="SimpleFill" locked="0">
-                            <prop k="color" v="249,235,34,255"/>
-                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="color" v="249,235,34,63"/>
+                            <prop k="color_border" v="0,0,0,63"/>
                             <prop k="offset" v="0,0"/>
                             <prop k="style" v="solid"/>
                             <prop k="style_border" v="solid"/>
@@ -467,7 +456,7 @@
                     </symbol>
                 </symbols>
                 <rotation field=""/>
-                <sizescale field="" scalemethod="area"/>
+                <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
             <displayfield>id</displayfield>
@@ -498,14 +487,11 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0">
             <id>processed_BuildingsNotConnected20130207095137796</id>
-            <datasource>./ProcessedNetwork/processed_BuildingsNotConnected.shp</datasource>
+            <datasource>./ProcessedArea/processed_BuildingsNotConnected.shp</datasource>
             <title></title>
             <abstract></abstract>
             <layername>processed_BuildingsNotConnected</layername>
@@ -533,13 +519,12 @@
                             <prop k="color_border" v="255,0,4,255"/>
                             <prop k="name" v="cross2"/>
                             <prop k="offset" v="0,0"/>
-                            <prop k="scale_method" v="area"/>
                             <prop k="size" v="3"/>
                         </layer>
                     </symbol>
                 </symbols>
                 <rotation field=""/>
-                <sizescale field="" scalemethod="area"/>
+                <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
             <displayfield>ID</displayfield>
@@ -570,9 +555,73 @@
             <editform>.</editform>
             <editforminit></editforminit>
             <annotationform>.</annotationform>
-            <editorlayout>generatedlayout</editorlayout>
-            <excludeAttributesWMS/>
-            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>processed_PossibleTrenches20130219145947149</id>
+            <datasource>./ProcessedArea/processed_PossibleTrenches.shp</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>processed_PossibleTrenches</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs</proj4>
+                    <srsid>2640</srsid>
+                    <srid>31370</srid>
+                    <authid>EPSG:31370</authid>
+                    <description>Belge 1972 / Belgian Lambert 72</description>
+                    <projectionacronym>lcc</projectionacronym>
+                    <ellipsoidacronym>intl</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System">ogr</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="1" type="line" name="0">
+                        <layer pass="0" class="SimpleLine" locked="0">
+                            <prop k="capstyle" v="square"/>
+                            <prop k="color" v="145,133,21,255"/>
+                            <prop k="customdash" v="5;2"/>
+                            <prop k="joinstyle" v="bevel"/>
+                            <prop k="offset" v="0"/>
+                            <prop k="penstyle" v="solid"/>
+                            <prop k="use_custom_dash" v="0"/>
+                            <prop k="width" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field=""/>
+            </renderer-v2>
+            <customproperties/>
+            <displayfield>ID</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="MS Shell Dlg 2"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
             <attributeactions/>
         </maplayer>
     </projectlayers>
@@ -580,7 +629,6 @@
         <SpatialRefSys>
             <ProjectCrs type="QString">EPSG:4326</ProjectCrs>
             <ProjectCRSID type="int">2640</ProjectCRSID>
-            <ProjectionsEnabled type="int">0</ProjectionsEnabled>
         </SpatialRefSys>
         <Paths>
             <Absolute type="bool">false</Absolute>
