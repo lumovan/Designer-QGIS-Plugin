@@ -5,7 +5,10 @@
     <file>icons/blueprints.png</file>
     <file>icons/bullet_disk.png</file>
     <file>icons/cog.png</file>
+	<file>icons/crossing.png</file>
+	<file>icons/doubler.png</file>
     <file>icons/drop.png</file>
+	<file>icons/drop_old.png</file>
     <file>icons/file_extension_xls.png</file>
     <file>icons/house.png</file>
     <file>icons/layer_wms.png</file>

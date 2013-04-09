@@ -85,7 +85,8 @@ class FiberPlanITDesigner:
         # GROUP 2_1: switch to area view (input folder project)
         # GROUP 2_2: create trenches /streetDoubler
         # GROUP 2_3: create drop trenches /createBuildingTrenches
-        # GROUP 2_4: process ares /procesInput
+        # GROUP 2_4: create crossings /createCrossings
+        # GROUP 2_5: process ares /procesInput
 
         # GROUP 3_1: switch to design view (output folder project)
         # GROUP 3_2: calculate distribution /calculateDistribution
@@ -123,7 +124,7 @@ class FiberPlanITDesigner:
 
         self.action_2_2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Trenches")
         self.action_2_2 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/trench.png"),
+            QIcon(":/plugins/fiberplanitdesigner/icons/doubler.png"),
             self.action_2_2_txt, self.iface.mainWindow())
         QObject.connect(self.action_2_2, SIGNAL("triggered()"), self.createtrenches)
         self.toolBar.addAction(self.action_2_2)
@@ -137,13 +138,21 @@ class FiberPlanITDesigner:
         self.toolBar.addAction(self.action_2_3)
         self.iface.addPluginToMenu(self.actiontxt, self.action_2_3)
 
-        self.action_2_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Process Area")
+        self.action_2_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Crossings")
         self.action_2_4 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/process area.png"),
+            QIcon(":/plugins/fiberplanitdesigner/icons/crossing.png"),
             self.action_2_4_txt, self.iface.mainWindow())
-        QObject.connect(self.action_2_4, SIGNAL("triggered()"), self.processarea)
+        QObject.connect(self.action_2_4, SIGNAL("triggered()"), self.createcrossings)
         self.toolBar.addAction(self.action_2_4)
         self.iface.addPluginToMenu(self.actiontxt, self.action_2_4)
+        
+        self.action_2_5_txt = QCoreApplication.translate("fiberplanitdesigner", u"Process Area")
+        self.action_2_5 = QAction(
+            QIcon(":/plugins/fiberplanitdesigner/icons/process area.png"),
+            self.action_2_5_txt, self.iface.mainWindow())
+        QObject.connect(self.action_2_5, SIGNAL("triggered()"), self.processarea)
+        self.toolBar.addAction(self.action_2_5)
+        self.iface.addPluginToMenu(self.actiontxt, self.action_2_5)
 
         self.toolBar.addSeparator()
 
@@ -195,6 +204,7 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_2_2)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_3)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_4)
+        self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_2)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
@@ -285,6 +295,11 @@ class FiberPlanITDesigner:
     def createbuildingtrenches(self):
         if self.nounsavededits():
             self.callFPI('/createBuildingTrenches')
+            self.areaview()
+    
+    def createcrossings(self):
+        if self.nounsavededits():
+            self.callFPI('/createCrossings')
             self.areaview()
 
     def processarea(self):
