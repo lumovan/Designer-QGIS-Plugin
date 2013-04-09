@@ -51,79 +51,84 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="105"/>
+        <location filename="fiberplanitdesigner.py" line="106"/>
         <source>Edit Rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="96"/>
+        <location filename="fiberplanitdesigner.py" line="97"/>
         <source>Configure FiberPlanIT Designer Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="116"/>
+        <location filename="fiberplanitdesigner.py" line="117"/>
         <source>Switch to Area View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="124"/>
+        <location filename="fiberplanitdesigner.py" line="125"/>
         <source>Create Trenches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="132"/>
+        <location filename="fiberplanitdesigner.py" line="133"/>
         <source>Create Drop Trenches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="140"/>
+        <location filename="fiberplanitdesigner.py" line="149"/>
         <source>Process Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="150"/>
+        <location filename="fiberplanitdesigner.py" line="159"/>
         <source>Switch to Design View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="158"/>
+        <location filename="fiberplanitdesigner.py" line="167"/>
         <source>Calculate Distribution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="166"/>
+        <location filename="fiberplanitdesigner.py" line="175"/>
         <source>Lock Clusters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="174"/>
+        <location filename="fiberplanitdesigner.py" line="183"/>
         <source>Calculate Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="182"/>
+        <location filename="fiberplanitdesigner.py" line="191"/>
         <source>Show Bill of Material</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="233"/>
+        <location filename="fiberplanitdesigner.py" line="244"/>
         <source>Edited layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="233"/>
+        <location filename="fiberplanitdesigner.py" line="244"/>
         <source>There is at least one layer with unsaved edits.
 Please save or discard edits first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="270"/>
+        <location filename="fiberplanitdesigner.py" line="285"/>
         <source>FPI returned an error code: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fiberplanitdesigner.py" line="310"/>
+        <location filename="fiberplanitdesigner.py" line="330"/>
         <source>Clusters succesfully locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fiberplanitdesigner.py" line="141"/>
+        <source>Create Crossings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
