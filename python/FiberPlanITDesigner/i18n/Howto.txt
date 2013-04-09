@@ -1,0 +1,13 @@
+See the following links more extensive documentation:
+http://qt-project.org/doc/qt-4.8/linguist-manager.html
+http://qt-project.org/doc/qt-4.8/linguist-translators.html
+
+
+Quick steps:
+1 - Update the translation (.ts) files based to reflect any changes made to code. The Makefile contains information about which are relevant for translation, and which languages should be created.
+p:\Git\QGisDesignerPlugin\python\FiberPlanITDesigner>c:\Python33\Lib\site-packages\PyQt4\pylupdate4.exe -verbose -noobsolete Makefile
+
+2 - Use Linguist (installed in the pyQT4 folder) to translate the created translation file.
+
+3 - Compile the translation files to .qm files.
+p:\Git\QGisDesignerPlugin\python\FiberPlanITDesigner>c:\Python33\Lib\site-packages\PyQt4\lrelease.exe i18n\fiberplanitdesigner_nl.ts
