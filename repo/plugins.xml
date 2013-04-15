@@ -7,6 +7,6 @@
      <qgis_minimum_version> 1.8</qgis_minimum_version>
      <file_name>fiberplanitdesigner.zip</file_name>
      <author_name>Comsof</author_name>
-     <download_url>http://46.21.168.170/comsof/fiberplanitdesigner.zip</download_url>
+     <download_url>http://www.comsof.com/designerdownload/fiberplanitdesigner.zip</download_url>
    </pyqgis_plugin>
  </plugins> 
