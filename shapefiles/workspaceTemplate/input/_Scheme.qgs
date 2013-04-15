@@ -4,10 +4,10 @@
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>102393.861664</xmin>
-            <ymin>197413.166174</ymin>
-            <xmax>104479.556396</xmax>
-            <ymax>198433.932682</ymax>
+            <xmin>101425.142892</xmin>
+            <ymin>196963.347558</ymin>
+            <xmax>105596.532356</xmax>
+            <ymax>199004.880575</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
@@ -24,8 +24,8 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="true">
-        <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="processed_PossibleTrenches" showFeatureCount="0">
-            <filegroup open="false" hidden="false">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="processed_PossibleTrenches" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="processed_PossibleTrenches20130219145947149" visible="0"/>
             </filegroup>
         </legendlayer>
@@ -36,7 +36,7 @@
         </legendlayer>
         <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="IN_Crossings" showFeatureCount="0">
             <filegroup open="false" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="IN_Crossings20130410163535021" visible="1"/>
+                <legendlayerfile isInOverview="0" layerid="IN_Crossings20130415151003382" visible="1"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="IN_DropEdges" showFeatureCount="0">
@@ -207,7 +207,7 @@
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0">
-            <id>IN_Crossings20130410163535021</id>
+            <id>IN_Crossings20130415151003382</id>
             <datasource>./IN_Crossings.shp</datasource>
             <title></title>
             <abstract></abstract>
@@ -232,7 +232,7 @@
                     <symbol outputUnit="MM" alpha="1" type="line" name="0">
                         <layer pass="0" class="SimpleLine" locked="0">
                             <prop k="capstyle" v="square"/>
-                            <prop k="color" v="47,47,237,255"/>
+                            <prop k="color" v="180,7,76,255"/>
                             <prop k="customdash" v="5;2"/>
                             <prop k="joinstyle" v="bevel"/>
                             <prop k="offset" v="0"/>
@@ -246,7 +246,7 @@
                 <sizescale field=""/>
             </renderer-v2>
             <customproperties/>
-            <displayfield>ID</displayfield>
+            <displayfield></displayfield>
             <label>0</label>
             <labelattributes>
                 <label fieldname="" text="Label"/>
@@ -268,9 +268,9 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
-            <editform>.</editform>
+            <editform></editform>
             <editforminit></editforminit>
-            <annotationform>.</annotationform>
+            <annotationform></annotationform>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0">
