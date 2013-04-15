@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." name="QGisDesignerPlugin">
+    <target name="package" description="Creates a zip suited as a QGis Plugin Download.">
+        <delete file="repo/fiberplanitdesigner.zip" />
+        <zip destfile="repo/fiberplanitdesigner.zip">
+            <zipfileset prefix="fiberplanitdesigner" dir="python\FiberPlanITDesigner" includes="i18n/*.qm" />
+            <zipfileset prefix="fiberplanitdesigner" dir="python\FiberPlanITDesigner" includes="icons/CREDITS.txt" />
+            <zipfileset prefix="fiberplanitdesigner" dir="python\FiberPlanITDesigner" includes="*.py, metadata.txt, icon.png" excludes="./*+/*"/>
+         </zip>
+    </target>
+
+    <target name="deploy" description="Installs the QGis Plugin on the local computer.">
+        <delete dir="${user.home}/.qgis/python/plugins/fiberplanitdesigner" />
+        <mkdir dir="${user.home}/.qgis/python/plugins/fiberplanitdesigner" />
+        <copy todir="${user.home}/.qgis/python/plugins/fiberplanitdesigner">
+            <fileset dir="python\FiberPlanITDesigner" includes="i18n/*.qm" />
+            <fileset dir="python\FiberPlanITDesigner" includes="icons/CREDITS.txt" />
+            <fileset dir="python\FiberPlanITDesigner" includes="*.py, metadata.txt, icon.png" excludes="./*+/*"/>
+        </copy>
+    </target>
+</project>
