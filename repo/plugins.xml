@@ -1,7 +1,7 @@
 <?xml version = "1.0"?>
 <?xml-stylesheet type="text/xsl" href="plugins.xsl"?>
  <plugins>
-   <pyqgis_plugin name="FiberPlanIT Designer" version="1.0.0">
+   <pyqgis_plugin name="FiberPlanIT Designer" version="1.1.0">
      <description>FiberPlanIT Designer</description>
      <homepage> http://www.comsof.com</homepage>
      <qgis_minimum_version> 1.8</qgis_minimum_version>
