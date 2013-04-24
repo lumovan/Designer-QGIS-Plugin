@@ -177,8 +177,8 @@ class FiberPlanITDesigner:
             QIcon(":/plugins/fiberplanitdesigner/icons/lock.png"),
             self.action_3_3_txt, self.iface.mainWindow())
         QObject.connect(self.action_3_3, SIGNAL("triggered()"), self.lockclusters)
-        self.toolBar.addAction(self.action_3_3)
-        self.iface.addPluginToMenu(self.actiontxt, self.action_3_3)
+        #self.toolBar.addAction(self.action_3_3)
+        #self.iface.addPluginToMenu(self.actiontxt, self.action_3_3)
 
         self.action_3_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Network")
         self.action_3_4 = QAction(
@@ -207,7 +207,7 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_2)
-        self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
+        #self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_4)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_5)
 
@@ -310,6 +310,7 @@ class FiberPlanITDesigner:
     def calculatedistribution(self):
         if self.nounsavededits():
             self.callFPI('/calculateDistribution')
+            self.callFPI('/lock')
             self.designview()
             # example to zoom to a layer
             self.zoomToLayer('IN_PossibleTrenches')
@@ -332,6 +333,7 @@ class FiberPlanITDesigner:
     def calculatenetwork(self):
         if self.nounsavededits():
             self.callFPI('/calculate')
+            self.callFPI('/lock')
             self.designview()
 
     def showbillofmaterial(self):
