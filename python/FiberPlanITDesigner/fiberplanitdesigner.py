@@ -166,7 +166,7 @@ class FiberPlanITDesigner:
 
         self.action_3_2_txt = QCoreApplication.translate("fiberplanitdesigner", "Calculate Distribution")
         self.action_3_2 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/sitemap_2.png"),
+            QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit_distribution.png"),
             self.action_3_2_txt, self.iface.mainWindow())
         QObject.connect(self.action_3_2, SIGNAL("triggered()"), self.calculatedistribution)
         self.toolBar.addAction(self.action_3_2)
@@ -182,7 +182,7 @@ class FiberPlanITDesigner:
 
         self.action_3_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Network")
         self.action_3_4 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/sitemap.png"),
+            QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit.png"),
             self.action_3_4_txt, self.iface.mainWindow())
         QObject.connect(self.action_3_4, SIGNAL("triggered()"), self.calculatenetwork)
         self.toolBar.addAction(self.action_3_4)
