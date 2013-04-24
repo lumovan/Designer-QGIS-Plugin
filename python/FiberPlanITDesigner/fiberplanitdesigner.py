@@ -309,8 +309,7 @@ class FiberPlanITDesigner:
 
     def calculatedistribution(self):
         if self.nounsavededits():
-            self.callFPI('/calculateDistribution')
-            self.callFPI('/lock')
+            self.callFPI('/calculateDistributionAndLock')
             self.designview()
             # example to zoom to a layer
             self.zoomToLayer('IN_PossibleTrenches')
@@ -332,8 +331,7 @@ class FiberPlanITDesigner:
 
     def calculatenetwork(self):
         if self.nounsavededits():
-            self.callFPI('/calculate')
-            self.callFPI('/lock')
+            self.callFPI('/calculateAndLock')
             self.designview()
 
     def showbillofmaterial(self):
