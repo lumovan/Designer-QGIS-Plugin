@@ -280,7 +280,7 @@ class FiberPlanITDesigner:
         self.iface.newProject() # newProject(False) == default == NO save dialog
         self.iface.mapCanvas().refresh()
         # run FPI with given argument
-        exitcode = subprocess.call([self.command, argument, self.inputdir, self.outputdir])
+        exitcode = subprocess.call([self.command, argument, self.inputdir, self.outputdir], cwd=os.path.dirname(self.command))
         if exitcode > 0:
             QMessageBox.warning(self.iface.mainWindow(), "-", ( QCoreApplication.translate("fiberplanitdesigner","FPI returned an error code: ") + str(exitcode)), QMessageBox.Ok, QMessageBox.Ok)
         else:
