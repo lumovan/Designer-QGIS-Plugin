@@ -31,6 +31,7 @@ from fiberplanitdesignerdialog import FiberPlanITDesignerDialog
 import subprocess # for calling external processes
 import os
 import shutil # for copying files
+import operator
 
 class FiberPlanITDesigner:
 
@@ -69,7 +70,6 @@ class FiberPlanITDesigner:
         QObject.connect(self.dlg, SIGNAL("commandSet(QString)"), self.setCommand)
 
     def initGui(self):
-
         # Add toolbar 
         self.toolBar = self.iface.addToolBar(QCoreApplication.translate("fiberplanitdesigner","FiberplanIT Designer"))
         self.toolBar.setObjectName("FiberplanIT Designer")
@@ -90,7 +90,7 @@ class FiberPlanITDesigner:
 
         # GROUP 3_1: switch to design view (output folder project)
         # GROUP 3_2: calculate distribution /calculateDistribution
-        # GROUP 3_3: lock clusters (copy OUT_DistributionClusters.shp to input)
+        # GROUP 3_3: lock/unlock elements
         # GROUP 3_4: calculate network /calculate
         # GROUP 3_5: show bill of material (show FPI-BoM.xlsx)
 
@@ -110,7 +110,6 @@ class FiberPlanITDesigner:
         QObject.connect(self.action_1_1, SIGNAL("triggered()"), self.configure)
         self.toolBar.addAction(self.action_1_1)
         self.iface.addPluginToMenu(self.actiontxt, self.action_1_1)
-
 
         self.toolBar.addSeparator()
 
@@ -164,21 +163,13 @@ class FiberPlanITDesigner:
         self.toolBar.addAction(self.action_3_1)
         self.iface.addPluginToMenu(self.actiontxt, self.action_3_1)
 
-        self.action_3_2_txt = QCoreApplication.translate("fiberplanitdesigner", "Calculate Distribution")
+        self.action_3_2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Distribution")
         self.action_3_2 = QAction(
             QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit_distribution.png"),
             self.action_3_2_txt, self.iface.mainWindow())
         QObject.connect(self.action_3_2, SIGNAL("triggered()"), self.calculatedistribution)
         self.toolBar.addAction(self.action_3_2)
         self.iface.addPluginToMenu(self.actiontxt, self.action_3_2)
-
-        self.action_3_3_txt = QCoreApplication.translate("fiberplanitdesigner", "Lock Clusters")
-        self.action_3_3 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/lock.png"),
-            self.action_3_3_txt, self.iface.mainWindow())
-        QObject.connect(self.action_3_3, SIGNAL("triggered()"), self.lockclusters)
-        #self.toolBar.addAction(self.action_3_3)
-        #self.iface.addPluginToMenu(self.actiontxt, self.action_3_3)
 
         self.action_3_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Network")
         self.action_3_4 = QAction(
@@ -187,6 +178,18 @@ class FiberPlanITDesigner:
         QObject.connect(self.action_3_4, SIGNAL("triggered()"), self.calculatenetwork)
         self.toolBar.addAction(self.action_3_4)
         self.iface.addPluginToMenu(self.actiontxt, self.action_3_4)
+
+        self.action_3_3_txt = QCoreApplication.translate("fiberplanitdesigner", u"Lock/Unlock Selected Elements")
+        self.action_3_3 = QAction(
+            QIcon(":/plugins/fiberplanitdesigner/icons/lock.png"),
+            self.action_3_3_txt, self.iface.mainWindow())
+        QObject.connect(self.action_3_3, SIGNAL("triggered()"), self.lockUnlockElements)
+        self.toolBar.addAction(self.action_3_3)
+        self.iface.addPluginToMenu(self.actiontxt, self.action_3_3)
+         # lockUnlockElements is triggered by the F11
+        self.iface.registerMainWindowAction(self.action_3_3, "F11")
+        
+        self.toolBar.addSeparator()
 
         self.action_3_5_txt = QCoreApplication.translate("fiberplanitdesigner", u"Show Bill of Material")
         self.action_3_5 = QAction(
@@ -207,7 +210,7 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_2)
-        #self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
+        self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_4)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_5)
 
@@ -239,10 +242,22 @@ class FiberPlanITDesigner:
     def nounsavededits(self):
         # check if there are any layers being edited
         layers = QgsMapLayerRegistry.instance().mapLayers()
+        unsavedChangesFound = False
         for id in layers:
             if layers[id].type()==0 and layers[id].isEditable() and layers[id].isModified():
-                QMessageBox.warning(self.iface.mainWindow(), QCoreApplication.translate("fiberplanitdesigner", "Edited layer"), QCoreApplication.translate("fiberplanitdesigner", "There is at least one layer with unsaved edits.\nPlease save or discard edits first."), QMessageBox.Ok, QMessageBox.Ok)
+                unsavedChangesFound = True
+                break
+        if (unsavedChangesFound):
+            # changeing this to "QMessageBox.warning" causes a crash (?)
+            ret = QMessageBox.critical(self.iface.mainWindow(), "Warning", "There is at least one layer with unsaved edits.\nPress 'OK' to save all changes and continue.\nPress 'Cancel' to stop.", QMessageBox.Ok, QMessageBox.Cancel)
+            #ret = QMessageBox.warning(self.iface.mainWindow(), QCoreApplication.translate("fiberplanitdesigner", "Edited layer"), QCoreApplication.translate("fiberplanitdesigner", "There is at least one layer with unsaved edits.\nPress ok to save all changes and continue.\nPress Cancel to stop."), QMessageBox.Ok, QMessageBox.Cancel):
+            if (ret == QMessageBox.Ok):
+                for id in layers:
+                    if layers[id].type()==0 and layers[id].isEditable() and layers[id].isModified():
+                        layers[id].commitChanges()
+            else:
                 return False
+
         # we also save current project here!!
         QgsProject.instance().write()
         return True
@@ -314,20 +329,6 @@ class FiberPlanITDesigner:
             # example to zoom to a layer
             self.zoomToLayer('IN_PossibleTrenches')
 
-    def lockclusters(self):
-        if self.nounsavededits():
-            for dirname, dirnames, filenames in os.walk(self.inputdir+'/CalculationInput/'):
-                for filename in filenames:
-                    if 'IN_forcedDistributionClusters' == filename.split('.')[0]:
-                        #print 'removing %s ' % filename
-                        os.remove(os.path.join(dirname, filename))
-
-            for dirname, dirnames, filenames in os.walk(self.outputdir):
-                for filename in filenames:
-                    if 'OUT_DistributionClusters' == filename.split('.')[0]:
-                        #print 'coping %s ' % filename
-                        shutil.copyfile(self.outputdir+'/'+filename, self.inputdir+'/CalculationInput/'+filename.replace('OUT_DistributionClusters','IN_forcedDistributionClusters'))
-            QMessageBox.warning(self.iface.mainWindow(), "-", ( QCoreApplication.translate("fiberplanitdesigner","Clusters succesfully locked.")), QMessageBox.Ok, QMessageBox.Ok)
 
     def calculatenetwork(self):
         if self.nounsavededits():
@@ -336,3 +337,61 @@ class FiberPlanITDesigner:
 
     def showbillofmaterial(self):
         output = subprocess.call([unicode(self.outputdir)+u'/FPI - BoM.xlsx'], shell=True)
+
+    def lockUnlockElements(self):
+        layer = self.iface.mapCanvas().currentLayer()
+        if (layer == None):
+        	infoString = QString("No layer selected... Select a layer from the layer list...")
+        	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
+        	return
+
+        provider = layer.dataProvider()
+        fields = provider.fields()
+
+        # Get the "LOCKED" attribute
+        locked_index = provider.fieldNameIndex("LOCKED")
+        if (locked_index == -1):
+        	infoString = QString("Locking not possible on selected layer. LOCK attribute missing.")
+        	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
+        	return
+
+        if not layer.isEditable():
+        	layer.startEditing()
+
+        # number of features
+        nF = layer.selectedFeatureCount()
+        if (nF == 0):
+        	infoString = QString("Select some elements in current <b>" + layer.name() + "</b> layer for locking")
+        	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
+        	return
+
+        selectedFeatIDs = layer.selectedFeaturesIds()
+        selectedFeats = layer.selectedFeatures()
+
+        trueValue = QVariant("T")
+        falseValue = QVariant("F")
+
+        mixedLockUnlock = False
+        lockedSeen = False
+        unlockedSeen = False
+        for feat in selectedFeats:
+            for (k, attr) in feat.attributeMap().iteritems():
+                if (fields[k].name() == "LOCKED"):
+                    if (attr.toString() == "F"):
+                        unlockedSeen = True
+                        newValue = trueValue
+                    else:
+                        lockedSeen = True
+                        newValue = falseValue
+
+        if (lockedSeen and unlockedSeen):
+            infoString = QString("Both locked and unlocked elements selected. Everything will be locked.")
+            QMessageBox.information(self.iface.mainWindow(), "Warning", infoString)
+            newValue = trueValue
+
+        # Change the attributes of the selected features
+        for i in selectedFeatIDs:
+        	layer.changeAttributeValue(int(i), locked_index, newValue)
+        for i in selectedFeatIDs:
+            layer.deselect(i)
+        return
