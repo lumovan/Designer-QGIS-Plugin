@@ -351,8 +351,8 @@ class FiberPlanITDesigner:
         # Get the "LOCKED" attribute
         locked_index = provider.fieldNameIndex("LOCKED")
         if (locked_index == -1):
-        	infoString = QString("Locking not possible on selected layer. LOCK attribute missing.")
-        	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
+        	infoString = QString("Locking not possible on selected layer. LOCKED attribute missing.")
+        	QMessageBox.warning(self.iface.mainWindow(), "Warning", infoString, QMessageBox.Ok, QMessageBox.Ok)
         	return
 
         if not layer.isEditable():
@@ -361,7 +361,7 @@ class FiberPlanITDesigner:
         # number of features
         nF = layer.selectedFeatureCount()
         if (nF == 0):
-        	infoString = QString("Select some elements in current <b>" + layer.name() + "</b> layer for locking")
+        	infoString = QString("Select some elements in current <b>" + layer.name() + "</b> layer for locking/unlocking")
         	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
         	return
 
@@ -392,6 +392,5 @@ class FiberPlanITDesigner:
         # Change the attributes of the selected features
         for i in selectedFeatIDs:
         	layer.changeAttributeValue(int(i), locked_index, newValue)
-        for i in selectedFeatIDs:
-            layer.deselect(i)
+        	layer.deselect(i)
         return
