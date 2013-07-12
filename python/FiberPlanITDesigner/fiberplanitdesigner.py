@@ -392,5 +392,6 @@ class FiberPlanITDesigner:
         # Change the attributes of the selected features
         for i in selectedFeatIDs:
         	layer.changeAttributeValue(int(i), locked_index, newValue)
-        	layer.deselect(i)
+        	#layer.deselect(i)
+        layer.removeSelection()
         return
