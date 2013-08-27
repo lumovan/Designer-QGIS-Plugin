@@ -129,13 +129,31 @@ class FiberPlanITDesigner:
         self.toolBar.addAction(self.action_2_2)
         self.iface.addPluginToMenu(self.actiontxt, self.action_2_2)
 
-        self.action_2_3_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Drop Trenches")
-        self.action_2_3 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"),
-            self.action_2_3_txt, self.iface.mainWindow())
-        QObject.connect(self.action_2_3, SIGNAL("triggered()"), self.createbuildingtrenches)
-        self.toolBar.addAction(self.action_2_3)
-        self.iface.addPluginToMenu(self.actiontxt, self.action_2_3)
+        ####### DROP
+
+        # TODO: switch to QToolButton: http://gis.stackexchange.com/questions/59313/how-to-create-a-dropdown-menu-in-qgis-toolbar-with-python
+        self.dropAction1_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Drop Trenches")
+        self.dropAction2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Drop Trenches Per 2 Buildings")
+
+        self.dropAction1 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
+        self.dropAction2 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction2_txt, self.iface.mainWindow())
+
+        self.popupMenu = QMenu(self.iface.mainWindow())
+        self.popupMenu.addAction(self.dropAction2)
+
+        self.dropAction1.triggered.connect(self.createbuildingtrenches)
+        self.dropAction2.triggered.connect(self.createpairedbuildingtrenches)
+
+        self.dropAction1.setMenu(self.popupMenu)
+        self.toolBar.addAction(self.dropAction1)
+
+        # Done because otherwise the popup menu is also in the menu
+        self.dropActionMenu = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
+        self.dropAction1.triggered.connect(self.createbuildingtrenches)
+        self.iface.addPluginToMenu(self.actiontxt, self.dropActionMenu)
+        self.iface.addPluginToMenu(self.actiontxt, self.dropAction2)
+
+        #######
 
         self.action_2_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Crossings")
         self.action_2_4 = QAction(
@@ -205,7 +223,8 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_1_2)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_1)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_2)
-        self.iface.removePluginMenu(self.actiontxt, self.action_2_3)
+        self.iface.removePluginMenu(self.actiontxt, self.dropAction1)
+        self.iface.removePluginMenu(self.actiontxt, self.dropAction2)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_4)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
@@ -310,6 +329,11 @@ class FiberPlanITDesigner:
     def createbuildingtrenches(self):
         if self.nounsavededits():
             self.callFPI('/createBuildingTrenches')
+            self.areaview()
+
+    def createpairedbuildingtrenches(self):
+        if self.nounsavededits():
+            self.callFPI('/createPairedBuildingTrenches')
             self.areaview()
     
     def createcrossings(self):
