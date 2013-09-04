@@ -181,21 +181,34 @@ class FiberPlanITDesigner:
         self.toolBar.addAction(self.action_3_1)
         self.iface.addPluginToMenu(self.actiontxt, self.action_3_1)
 
-        self.action_3_2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Distribution")
-        self.action_3_2 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit_distribution.png"),
-            self.action_3_2_txt, self.iface.mainWindow())
-        QObject.connect(self.action_3_2, SIGNAL("triggered()"), self.calculatedistribution)
-        self.toolBar.addAction(self.action_3_2)
-        self.iface.addPluginToMenu(self.actiontxt, self.action_3_2)
+        ####### CALCULATE
 
-        self.action_3_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Network")
-        self.action_3_4 = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit.png"),
-            self.action_3_4_txt, self.iface.mainWindow())
-        QObject.connect(self.action_3_4, SIGNAL("triggered()"), self.calculatenetwork)
-        self.toolBar.addAction(self.action_3_4)
-        self.iface.addPluginToMenu(self.actiontxt, self.action_3_4)
+        self.calculateAction1_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Network")
+        self.calculateAction2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Distribution Part")
+        self.calculateAction3_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Drop Part")
+
+        self.calculateAction = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit.png"), self.calculateAction1_txt, self.iface.mainWindow())
+        self.calculateAction1 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit.png"), self.calculateAction1_txt, self.iface.mainWindow())
+        self.calculateAction2 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit_distribution.png"), self.calculateAction2_txt, self.iface.mainWindow())
+        self.calculateAction3 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit_distribution.png"), self.calculateAction3_txt, self.iface.mainWindow())
+
+        self.popupMenu = QMenu(self.iface.mainWindow())
+        self.popupMenu.addAction(self.calculateAction1)
+        self.popupMenu.addAction(self.calculateAction2)
+        self.popupMenu.addAction(self.calculateAction3)
+
+        self.calculateAction.triggered.connect(self.calculatenetwork)
+        self.calculateAction1.triggered.connect(self.calculatenetwork)
+        self.calculateAction2.triggered.connect(self.calculatedistribution)
+        self.calculateAction3.triggered.connect(self.calculatedrop)
+
+        self.calculateAction.setMenu(self.popupMenu)
+        self.toolBar.addAction(self.calculateAction)
+
+        # Add to the plug-in menu
+        self.iface.addPluginToMenu(self.actiontxt, self.calculateAction)
+
+        #######
 
         self.action_3_3_txt = QCoreApplication.translate("fiberplanitdesigner", u"Lock/Unlock Selected Elements")
         self.action_3_3 = QAction(
@@ -228,11 +241,8 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_2_4)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
-        self.iface.removePluginMenu(self.actiontxt, self.action_3_2)
-        self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
-        self.iface.removePluginMenu(self.actiontxt, self.action_3_4)
+        self.iface.removePluginMenu(self.actiontxt, self.calculateAction)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_5)
-
         self.iface.removePluginMenu(self.actiontxt, self.action)
 
     def setInputDir(self, inputdir):
@@ -353,6 +363,10 @@ class FiberPlanITDesigner:
             # example to zoom to a layer
             self.zoomToLayer('IN_PossibleTrenches')
 
+    def calculatedrop(self):
+        if self.nounsavededits():
+            self.callFPI('/calculateDropAndLock')
+            self.designview()
 
     def calculatenetwork(self):
         if self.nounsavededits():
