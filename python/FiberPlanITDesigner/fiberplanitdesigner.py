@@ -130,29 +130,27 @@ class FiberPlanITDesigner:
         self.iface.addPluginToMenu(self.actiontxt, self.action_2_2)
 
         ####### DROP
-
         # TODO: switch to QToolButton: http://gis.stackexchange.com/questions/59313/how-to-create-a-dropdown-menu-in-qgis-toolbar-with-python
         self.dropAction1_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Drop Trenches")
         self.dropAction2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Drop Trenches Per 2 Buildings")
 
+        self.dropAction = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
         self.dropAction1 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
         self.dropAction2 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction2_txt, self.iface.mainWindow())
 
         self.popupMenu = QMenu(self.iface.mainWindow())
+        self.popupMenu.addAction(self.dropAction1)
         self.popupMenu.addAction(self.dropAction2)
 
+        self.dropAction.triggered.connect(self.createbuildingtrenches)
         self.dropAction1.triggered.connect(self.createbuildingtrenches)
         self.dropAction2.triggered.connect(self.createpairedbuildingtrenches)
 
-        self.dropAction1.setMenu(self.popupMenu)
-        self.toolBar.addAction(self.dropAction1)
+        self.dropAction.setMenu(self.popupMenu)
+        self.toolBar.addAction(self.dropAction)
 
-        # Done because otherwise the popup menu is also in the menu
-        self.dropActionMenu = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
-        self.dropAction1.triggered.connect(self.createbuildingtrenches)
-        self.iface.addPluginToMenu(self.actiontxt, self.dropActionMenu)
-        self.iface.addPluginToMenu(self.actiontxt, self.dropAction2)
-
+        # Add to the plug-in menu
+        self.iface.addPluginToMenu(self.actiontxt, self.dropAction)
         #######
 
         self.action_2_4_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Crossings")
@@ -182,7 +180,6 @@ class FiberPlanITDesigner:
         self.iface.addPluginToMenu(self.actiontxt, self.action_3_1)
 
         ####### CALCULATE
-
         self.calculateAction1_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Network")
         self.calculateAction2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Distribution Part")
         self.calculateAction3_txt = QCoreApplication.translate("fiberplanitdesigner", u"Calculate Drop Part")
@@ -207,9 +204,9 @@ class FiberPlanITDesigner:
 
         # Add to the plug-in menu
         self.iface.addPluginToMenu(self.actiontxt, self.calculateAction)
-
         #######
 
+        ####### LOCK
         self.action_3_3_txt = QCoreApplication.translate("fiberplanitdesigner", u"Lock/Unlock Selected Elements")
         self.action_3_3 = QAction(
             QIcon(":/plugins/fiberplanitdesigner/icons/lock.png"),
@@ -219,8 +216,19 @@ class FiberPlanITDesigner:
         self.iface.addPluginToMenu(self.actiontxt, self.action_3_3)
          # lockUnlockElements is triggered by the F11
         self.iface.registerMainWindowAction(self.action_3_3, "F11")
-        
+        #######
+
         self.toolBar.addSeparator()
+
+        ####### STATE MANAGER
+        self.stateManager_txt = QCoreApplication.translate("fiberplanitdesigner", u"Open State Manager")
+        self.manageStatesAction = QAction(
+            QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit.png"),
+            self.stateManager_txt, self.iface.mainWindow())
+        QObject.connect(self.manageStatesAction, SIGNAL("triggered()"), self.manageStates)
+        self.toolBar.addAction(self.manageStatesAction)
+        self.iface.addPluginToMenu(self.actiontxt, self.manageStatesAction)
+        #######
 
         self.action_3_5_txt = QCoreApplication.translate("fiberplanitdesigner", u"Show Bill of Material")
         self.action_3_5 = QAction(
@@ -236,13 +244,13 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_1_2)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_1)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_2)
-        self.iface.removePluginMenu(self.actiontxt, self.dropAction1)
-        self.iface.removePluginMenu(self.actiontxt, self.dropAction2)
+        self.iface.removePluginMenu(self.actiontxt, self.dropAction)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_4)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
         self.iface.removePluginMenu(self.actiontxt, self.calculateAction)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_5)
+        self.iface.removePluginMenu(self.actiontxt, self.manageStatesAction)
         self.iface.removePluginMenu(self.actiontxt, self.action)
 
     def setInputDir(self, inputdir):
@@ -305,6 +313,7 @@ class FiberPlanITDesigner:
             f = QFileInfo(self.outputdir+'/_Scheme.qgs')
             QgsProject.instance().read(f)
 
+    # example to zoom to a layer: self.zoomToLayer('IN_PossibleTrenches')
     def zoomToLayer(self, layername):
         for layer in self.iface.mapCanvas().layers():
             if layer.name() == layername:
@@ -356,12 +365,15 @@ class FiberPlanITDesigner:
             self.callFPI('/processInput')
             self.areaview()
 
+    def manageStates(self):
+        if self.nounsavededits():
+            self.callFPI('/manageStates')
+            self.designview()
+
     def calculatedistribution(self):
         if self.nounsavededits():
             self.callFPI('/calculateDistributionAndLock')
             self.designview()
-            # example to zoom to a layer
-            self.zoomToLayer('IN_PossibleTrenches')
 
     def calculatedrop(self):
         if self.nounsavededits():
