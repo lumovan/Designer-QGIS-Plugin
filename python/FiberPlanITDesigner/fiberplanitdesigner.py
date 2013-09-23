@@ -55,19 +55,15 @@ class FiberPlanITDesigner:
         # Create the dialog (after translation) and keep reference
         self.dlg = FiberPlanITDesignerDialog()
         self.settings = QSettings()
-        self.inputdir = ''
-        # from settings you retrieve a QVariant!
-        if self.settings.contains('/fiberplanitdesigner/inputpath'):
-            self.inputdir = unicode(self.settings.value('/fiberplanitdesigner/inputpath').toString())
-        self.outputdir = ''
-        if self.settings.contains('/fiberplanitdesigner/outputpath'):
-            self.outputdir = unicode(self.settings.value('/fiberplanitdesigner/outputpath').toString())
+        self.workspacedir = ''
+        if self.settings.contains('/fiberplanitdesigner/workspacepath'):
+            self.workspacedir = unicode(self.settings.value('/fiberplanitdesigner/workspacepath').toString())
         self.command = ''
         if self.settings.contains('/fiberplanitdesigner/command'):
             self.command = unicode(self.settings.value('/fiberplanitdesigner/command').toString())
-        QObject.connect(self.dlg, SIGNAL("inputDirSet(QString)"), self.setInputDir)
-        QObject.connect(self.dlg, SIGNAL("outputDirSet(QString)"), self.setOutputDir)
+        QObject.connect(self.dlg, SIGNAL("workspaceDirSet(QString)"), self.setWorkspacedirDir)
         QObject.connect(self.dlg, SIGNAL("commandSet(QString)"), self.setCommand)
+        QObject.connect(self.dlg, SIGNAL("workpaceInit(QString)"), self.initWorkspace)
 
     def initGui(self):
         # Add toolbar 
@@ -253,14 +249,9 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.manageStatesAction)
         self.iface.removePluginMenu(self.actiontxt, self.action)
 
-    def setInputDir(self, inputdir):
-        # from dialog signal you receive a QString
-        self.inputdir = unicode(inputdir)
-        self.settings.setValue('/fiberplanitdesigner/inputpath', inputdir)
-
-    def setOutputDir(self, outputdir):
-        self.outputdir = unicode(outputdir)
-        self.settings.setValue('/fiberplanitdesigner/outputpath', outputdir)
+    def setWorkspacedirDir(self, workspacedir):
+        self.workspacedir = unicode(workspacedir)
+        self.settings.setValue('/fiberplanitdesigner/workspacepath', workspacedir)
 
     def setCommand(self, command):
         self.command = unicode(command)
@@ -268,13 +259,15 @@ class FiberPlanITDesigner:
 
     def configure(self):
         self.ensureConfigured()
-        output = subprocess.call([self.command, '/configure', self.inputdir, self.outputdir])
+        output = subprocess.call([self.command, '/configure', self.workspacedir])
 
     def configure2(self):
-        self.dlg.leInputDir.setText(self.inputdir)
-        self.dlg.leOutputDir.setText(self.outputdir)
+        self.dlg.leWorkspaceDir.setText(self.workspacedir)
         self.dlg.leCommand.setText(self.command)
         self.dlg.show()
+        
+    def initWorkspace(self):
+          self.callFPI('/initWorkspace')      
 
     def nounsavededits(self):
         # check if there are any layers being edited
@@ -303,14 +296,14 @@ class FiberPlanITDesigner:
         if self.nounsavededits():
             # first removing all layers (just to be sure ??)
             QgsMapLayerRegistry.instance().removeAllMapLayers()
-            f = QFileInfo(self.inputdir+'/_Scheme.qgs')
+            f = QFileInfo(self.workspacedir+'/input/_Scheme.qgs')
             QgsProject.instance().read(f)
 
     def designview(self):
         if self.nounsavededits():
             # first removing all layers (just to be sure ??)
             QgsMapLayerRegistry.instance().removeAllMapLayers()
-            f = QFileInfo(self.outputdir+'/_Scheme.qgs')
+            f = QFileInfo(self.workspacedir+'/output/_Scheme.qgs')
             QgsProject.instance().read(f)
 
     # example to zoom to a layer: self.zoomToLayer('IN_PossibleTrenches')
@@ -322,7 +315,7 @@ class FiberPlanITDesigner:
 
     def ensureConfigured(self):
         # test for empty plugin variables
-        if  (self.inputdir is None or self.inputdir == '') or (self.outputdir is None or self.outputdir == '') or (self.command is None or self.command == ''):
+        if (self.workspacedir is None or self.workspacedir == '') or (self.command is None or self.command == ''):
             self.configure2()
 
     def callFPI(self, argument):
@@ -333,7 +326,7 @@ class FiberPlanITDesigner:
         self.iface.newProject() # newProject(False) == default == NO save dialog
         self.iface.mapCanvas().refresh()
         # run FPI with given argument
-        exitcode = subprocess.call([self.command, argument, self.inputdir, self.outputdir], cwd=os.path.dirname(self.command))
+        exitcode = subprocess.call([self.command, argument, self.workspacedir], cwd=os.path.dirname(self.command))
         if exitcode > 0:
             QMessageBox.warning(self.iface.mainWindow(), "-", ( QCoreApplication.translate("fiberplanitdesigner","FPI returned an error code: ") + str(exitcode)), QMessageBox.Ok, QMessageBox.Ok)
         else:
@@ -386,7 +379,7 @@ class FiberPlanITDesigner:
             self.designview()
 
     def showbillofmaterial(self):
-        output = subprocess.call([unicode(self.outputdir)+u'/FPI - BoM.xlsx'], shell=True)
+        output = subprocess.call([unicode(self.workspacedir)+u'/output/FPI - BoM.xlsx'], shell=True)
 
     def lockUnlockElements(self):
         layer = self.iface.mapCanvas().currentLayer()

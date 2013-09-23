@@ -30,27 +30,28 @@ class FiberPlanITDesignerDialog(QDialog, Ui_FiberPlanITDesigner):
     def __init__(self):
         QDialog.__init__(self)
         self.setupUi(self)
-        QObject.connect(self.btnInputDir, SIGNAL("clicked()"), self.setInputDir)
-        QObject.connect(self.btnOutputDir, SIGNAL("clicked()"), self.setOutputDir)
+        QObject.connect(self.btnWorkspaceDir, SIGNAL("clicked()"), self.setWorkspaceDir)
         QObject.connect(self.btnCommand, SIGNAL("clicked()"), self.testCommand)
+        QObject.connect(self.btnInitilaizeWorkspace, SIGNAL("clicked()"), self.initializeWorkspace)
 
     def on_buttonBox_accepted(self):
         # TODO? check to see if all vars are set?
         #if True:
         #    return False
-        self.emit( SIGNAL("inputDirSet(QString)"), self.leInputDir.text() )
-        self.emit( SIGNAL("outputDirSet(QString)"), self.leOutputDir.text() )
+        self.emit( SIGNAL("workspaceDirSet(QString)"), self.leWorkspaceDir.text() )
         self.emit( SIGNAL("commandSet(QString)"), self.leCommand.text() )
 
     def testCommand(self):
         self.leCommand.setText(QFileDialog.getOpenFileName(self, u"Please give command to run (with path)"))
 
-    def setInputDir(self):
-        self.leInputDir.setText(QFileDialog.getExistingDirectory(self, u"Please provide directory for INPUT files"))
 
-    def setOutputDir(self):
-        self.leOutputDir.setText(QFileDialog.getExistingDirectory(self, u"Please provide directory for OUTPUT files"))
+    def setWorkspaceDir(self):
+        self.leWorkspaceDir.setText(QFileDialog.getExistingDirectory(self, u"Please provide directory for OUTPUT files"))
 
+    def initializeWorkspace(self):
+        self.emit( SIGNAL("workspaceDirSet(QString)"), self.leWorkspaceDir.text() )
+        self.emit( SIGNAL("commandSet(QString)"), self.leCommand.text() )
+        self.emit( SIGNAL("workpaceInit(QString)"), self.leCommand.text() )
 
 
 

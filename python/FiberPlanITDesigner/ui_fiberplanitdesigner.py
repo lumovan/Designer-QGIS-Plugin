@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui_fiberplanitdesigner.ui'
+# Form implementation generated from reading ui file 'C:\Users\Abram\IdeaProjects\FiberPlanIT_Wrap\QGisDesignerPlugin\python\FiberPlanITDesigner\ui_fiberplanitdesigner.ui'
 #
-# Created: Tue Feb 12 15:15:10 2013
-#      by: PyQt4 UI code generator 4.9.3
+# Created: Fri Sep 20 17:16:57 2013
+#      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,29 +12,35 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_FiberPlanITDesigner(object):
     def setupUi(self, FiberPlanITDesigner):
         FiberPlanITDesigner.setObjectName(_fromUtf8("FiberPlanITDesigner"))
-        FiberPlanITDesigner.resize(756, 277)
+        FiberPlanITDesigner.resize(756, 131)
         self.gridLayout = QtGui.QGridLayout(FiberPlanITDesigner)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.gridLayout_2 = QtGui.QGridLayout()
+        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
+        self.buttonBox = QtGui.QDialogButtonBox(FiberPlanITDesigner)
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.gridLayout_2.addWidget(self.buttonBox, 3, 1, 1, 3)
         self.btnCommand = QtGui.QPushButton(FiberPlanITDesigner)
         self.btnCommand.setObjectName(_fromUtf8("btnCommand"))
-        self.gridLayout.addWidget(self.btnCommand, 2, 2, 1, 1)
-        self.leCommand = QtGui.QLineEdit(FiberPlanITDesigner)
-        self.leCommand.setObjectName(_fromUtf8("leCommand"))
-        self.gridLayout.addWidget(self.leCommand, 2, 1, 1, 1)
-        self.leOutputDir = QtGui.QLineEdit(FiberPlanITDesigner)
-        self.leOutputDir.setObjectName(_fromUtf8("leOutputDir"))
-        self.gridLayout.addWidget(self.leOutputDir, 1, 1, 1, 1)
-        self.btnOutputDir = QtGui.QPushButton(FiberPlanITDesigner)
-        self.btnOutputDir.setObjectName(_fromUtf8("btnOutputDir"))
-        self.gridLayout.addWidget(self.btnOutputDir, 1, 2, 1, 1)
-        self.leInputDir = QtGui.QLineEdit(FiberPlanITDesigner)
-        self.leInputDir.setObjectName(_fromUtf8("leInputDir"))
-        self.gridLayout.addWidget(self.leInputDir, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.btnCommand, 0, 2, 1, 1)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem, 2, 1, 1, 1)
         self.lblCommand = QtGui.QLabel(FiberPlanITDesigner)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -42,7 +48,10 @@ class Ui_FiberPlanITDesigner(object):
         sizePolicy.setHeightForWidth(self.lblCommand.sizePolicy().hasHeightForWidth())
         self.lblCommand.setSizePolicy(sizePolicy)
         self.lblCommand.setObjectName(_fromUtf8("lblCommand"))
-        self.gridLayout.addWidget(self.lblCommand, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.lblCommand, 0, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.leWorkspaceDir = QtGui.QLineEdit(FiberPlanITDesigner)
+        self.leWorkspaceDir.setObjectName(_fromUtf8("leWorkspaceDir"))
+        self.gridLayout_2.addWidget(self.leWorkspaceDir, 1, 1, 1, 1)
         self.lblOutputDir = QtGui.QLabel(FiberPlanITDesigner)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -50,41 +59,37 @@ class Ui_FiberPlanITDesigner(object):
         sizePolicy.setHeightForWidth(self.lblOutputDir.sizePolicy().hasHeightForWidth())
         self.lblOutputDir.setSizePolicy(sizePolicy)
         self.lblOutputDir.setObjectName(_fromUtf8("lblOutputDir"))
-        self.gridLayout.addWidget(self.lblOutputDir, 1, 0, 1, 1)
-        self.lblInputDir = QtGui.QLabel(FiberPlanITDesigner)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lblInputDir.sizePolicy().hasHeightForWidth())
-        self.lblInputDir.setSizePolicy(sizePolicy)
-        self.lblInputDir.setObjectName(_fromUtf8("lblInputDir"))
-        self.gridLayout.addWidget(self.lblInputDir, 0, 0, 1, 1)
-        self.btnInputDir = QtGui.QPushButton(FiberPlanITDesigner)
-        self.btnInputDir.setObjectName(_fromUtf8("btnInputDir"))
-        self.gridLayout.addWidget(self.btnInputDir, 0, 2, 1, 1)
-        self.buttonBox = QtGui.QDialogButtonBox(FiberPlanITDesigner)
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.gridLayout.addWidget(self.buttonBox, 3, 0, 1, 3)
+        self.gridLayout_2.addWidget(self.lblOutputDir, 1, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.leCommand = QtGui.QLineEdit(FiberPlanITDesigner)
+        self.leCommand.setObjectName(_fromUtf8("leCommand"))
+        self.gridLayout_2.addWidget(self.leCommand, 0, 1, 1, 1)
+        self.btnWorkspaceDir = QtGui.QPushButton(FiberPlanITDesigner)
+        self.btnWorkspaceDir.setObjectName(_fromUtf8("btnWorkspaceDir"))
+        self.gridLayout_2.addWidget(self.btnWorkspaceDir, 1, 2, 1, 1)
+        self.btnInitilaizeWorkspace = QtGui.QPushButton(FiberPlanITDesigner)
+        self.btnInitilaizeWorkspace.setObjectName(_fromUtf8("btnInitilaizeWorkspace"))
+        self.gridLayout_2.addWidget(self.btnInitilaizeWorkspace, 1, 3, 1, 1)
+        self.gridLayout.addLayout(self.gridLayout_2, 4, 0, 1, 1)
 
         self.retranslateUi(FiberPlanITDesigner)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), FiberPlanITDesigner.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), FiberPlanITDesigner.reject)
         QtCore.QMetaObject.connectSlotsByName(FiberPlanITDesigner)
+        FiberPlanITDesigner.setTabOrder(self.btnCommand, self.btnWorkspaceDir)
+        FiberPlanITDesigner.setTabOrder(self.btnWorkspaceDir, self.btnInitilaizeWorkspace)
+        FiberPlanITDesigner.setTabOrder(self.btnInitilaizeWorkspace, self.buttonBox)
+        FiberPlanITDesigner.setTabOrder(self.buttonBox, self.leCommand)
+        FiberPlanITDesigner.setTabOrder(self.leCommand, self.leWorkspaceDir)
 
     def retranslateUi(self, FiberPlanITDesigner):
-        FiberPlanITDesigner.setWindowTitle(QtGui.QApplication.translate("FiberPlanITDesigner", "FiberPlanIT Designer Plugin config", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnCommand.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Browse", None, QtGui.QApplication.UnicodeUTF8))
-        self.leCommand.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Executable (with path)", None, QtGui.QApplication.UnicodeUTF8))
-        self.leCommand.setPlaceholderText(QtGui.QApplication.translate("FiberPlanITDesigner", "Executable (with path)", None, QtGui.QApplication.UnicodeUTF8))
-        self.leOutputDir.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Path to output folder", None, QtGui.QApplication.UnicodeUTF8))
-        self.leOutputDir.setPlaceholderText(QtGui.QApplication.translate("FiberPlanITDesigner", "Path to output folder", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnOutputDir.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Browse", None, QtGui.QApplication.UnicodeUTF8))
-        self.leInputDir.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Path to input folder", None, QtGui.QApplication.UnicodeUTF8))
-        self.leInputDir.setPlaceholderText(QtGui.QApplication.translate("FiberPlanITDesigner", "Path to input folder", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblCommand.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Command", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblOutputDir.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Output dir", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblInputDir.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Input dir", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnInputDir.setText(QtGui.QApplication.translate("FiberPlanITDesigner", "Browse", None, QtGui.QApplication.UnicodeUTF8))
+        FiberPlanITDesigner.setWindowTitle(_translate("FiberPlanITDesigner", "FiberPlanIT Designer Plugin config", None))
+        self.btnCommand.setText(_translate("FiberPlanITDesigner", "Browse", None))
+        self.lblCommand.setText(_translate("FiberPlanITDesigner", "Command", None))
+        self.leWorkspaceDir.setText(_translate("FiberPlanITDesigner", "Path to workspace folder", None))
+        self.leWorkspaceDir.setPlaceholderText(_translate("FiberPlanITDesigner", "Path to output folder", None))
+        self.lblOutputDir.setText(_translate("FiberPlanITDesigner", "Workspace dir", None))
+        self.leCommand.setText(_translate("FiberPlanITDesigner", "Executable (with path)", None))
+        self.leCommand.setPlaceholderText(_translate("FiberPlanITDesigner", "Executable (with path)", None))
+        self.btnWorkspaceDir.setText(_translate("FiberPlanITDesigner", "Browse", None))
+        self.btnInitilaizeWorkspace.setText(_translate("FiberPlanITDesigner", "Initialize", None))
 
