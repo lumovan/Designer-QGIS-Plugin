@@ -5,9 +5,11 @@
 	<file>icons/crossing.png</file>
 	<file>icons/doubler.png</file>
     <file>icons/drop.png</file>
+	<file>icons/drop2.png</file>
     <file>icons/fiberplanit.png</file>
     <file>icons/fiberplanit_distribution.png</file>
     <file>icons/file_extension_xls.png</file>
+	<file>icons/file_manager.png</file>
     <file>icons/lock.png</file>
     <file>icons/map.png</file>
     <file>icons/process area.png</file>

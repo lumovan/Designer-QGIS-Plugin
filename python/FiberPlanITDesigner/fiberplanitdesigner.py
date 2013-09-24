@@ -132,7 +132,7 @@ class FiberPlanITDesigner:
 
         self.dropAction = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
         self.dropAction1 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction1_txt, self.iface.mainWindow())
-        self.dropAction2 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop.png"), self.dropAction2_txt, self.iface.mainWindow())
+        self.dropAction2 = QAction(QIcon(":/plugins/fiberplanitdesigner/icons/drop2.png"), self.dropAction2_txt, self.iface.mainWindow())
 
         self.popupMenu = QMenu(self.iface.mainWindow())
         self.popupMenu.addAction(self.dropAction1)
@@ -219,7 +219,7 @@ class FiberPlanITDesigner:
         ####### STATE MANAGER
         self.stateManager_txt = QCoreApplication.translate("fiberplanitdesigner", u"Open State Manager")
         self.manageStatesAction = QAction(
-            QIcon(":/plugins/fiberplanitdesigner/icons/fiberplanit.png"),
+            QIcon(":/plugins/fiberplanitdesigner/icons/file_manager.png"),
             self.stateManager_txt, self.iface.mainWindow())
         QObject.connect(self.manageStatesAction, SIGNAL("triggered()"), self.manageStates)
         self.toolBar.addAction(self.manageStatesAction)
