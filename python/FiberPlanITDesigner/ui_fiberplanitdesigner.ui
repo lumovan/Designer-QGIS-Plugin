@@ -29,7 +29,7 @@
      <item row="0" column="2">
       <widget class="QPushButton" name="btnCommand">
        <property name="text">
-        <string>Browse</string>
+        <string>Browse...</string>
        </property>
       </widget>
      </item>
@@ -78,7 +78,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Workspace dir</string>
+        <string>Workspace</string>
        </property>
       </widget>
      </item>
@@ -95,14 +95,14 @@
      <item row="1" column="2">
       <widget class="QPushButton" name="btnWorkspaceDir">
        <property name="text">
-        <string>Browse</string>
+        <string>Browse...</string>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
       <widget class="QPushButton" name="btnInitilaizeWorkspace">
        <property name="text">
-        <string>Initialize</string>
+        <string>Initialize...</string>
        </property>
       </widget>
      </item>
@@ -111,12 +111,12 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>leCommand</tabstop>
   <tabstop>btnCommand</tabstop>
+  <tabstop>leWorkspaceDir</tabstop>
   <tabstop>btnWorkspaceDir</tabstop>
   <tabstop>btnInitilaizeWorkspace</tabstop>
   <tabstop>buttonBox</tabstop>
-  <tabstop>leCommand</tabstop>
-  <tabstop>leWorkspaceDir</tabstop>
  </tabstops>
  <resources/>
  <connections>
