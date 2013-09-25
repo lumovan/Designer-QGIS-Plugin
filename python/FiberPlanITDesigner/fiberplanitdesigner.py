@@ -53,7 +53,7 @@ class FiberPlanITDesigner:
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
         # Create the dialog (after translation) and keep reference
-        self.dlg = FiberPlanITDesignerDialog()
+        self.dlg = FiberPlanITDesignerDialog(self)
         self.settings = QSettings()
         self.workspacedir = ''
         if self.settings.contains('/fiberplanitdesigner/workspacepath'):
