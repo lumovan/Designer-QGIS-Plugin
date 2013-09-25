@@ -31,7 +31,7 @@ class FiberPlanITDesignerDialog(QDialog, Ui_FiberPlanITDesigner):
         QDialog.__init__(self)
         self.setupUi(self)
         QObject.connect(self.btnWorkspaceDir, SIGNAL("clicked()"), self.setWorkspaceDir)
-        QObject.connect(self.btnCommand, SIGNAL("clicked()"), self.testCommand)
+        QObject.connect(self.btnCommand, SIGNAL("clicked()"), self.setExecutable)
         QObject.connect(self.btnInitilaizeWorkspace, SIGNAL("clicked()"), self.initializeWorkspace)
 
     def on_buttonBox_accepted(self):
@@ -41,12 +41,12 @@ class FiberPlanITDesignerDialog(QDialog, Ui_FiberPlanITDesigner):
         self.emit( SIGNAL("workspaceDirSet(QString)"), self.leWorkspaceDir.text() )
         self.emit( SIGNAL("commandSet(QString)"), self.leCommand.text() )
 
-    def testCommand(self):
-        self.leCommand.setText(QFileDialog.getOpenFileName(self, u"Please give command to run (with path)"))
+    def setExecutable(self):
+        self.leCommand.setText(QFileDialog.getOpenFileName(self, u"Please select the executable location"))
 
 
     def setWorkspaceDir(self):
-        self.leWorkspaceDir.setText(QFileDialog.getExistingDirectory(self, u"Please provide directory for OUTPUT files"))
+        self.leWorkspaceDir.setText(QFileDialog.getExistingDirectory(self, u"Please select a workspace folder"))
 
     def initializeWorkspace(self):
         self.emit( SIGNAL("workspaceDirSet(QString)"), self.leWorkspaceDir.text() )
