@@ -43,11 +43,15 @@ class FiberPlanITDesignerDialog(QDialog, Ui_FiberPlanITDesigner):
         self.emit( SIGNAL("commandSet(QString)"), self.leCommand.text() )
 
     def setExecutable(self):
-        self.leCommand.setText(QFileDialog.getOpenFileName(self, u"Please select the executable location"))
+        selectedFile = QFileDialog.getOpenFileName(self, u"Please select the executable location", self.fpiMain.command)
+        if selectedFile:
+            self.leCommand.setText(selectedFile)
 
 
     def setWorkspaceDir(self):
-        self.leWorkspaceDir.setText(QFileDialog.getExistingDirectory(self, u"Please select a workspace folder"))
+        selectedFolder = QFileDialog.getExistingDirectory(self, u"Please select a workspace folder", self.fpiMain.workspacedir)
+        if selectedFolder:
+            self.leWorkspaceDir.setText(selectedFolder)
 
     def initializeWorkspace(self):
         self.emit( SIGNAL("workspaceDirSet(QString)"), self.leWorkspaceDir.text() )
