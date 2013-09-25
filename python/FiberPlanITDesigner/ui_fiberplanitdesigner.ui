@@ -100,7 +100,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QPushButton" name="btnInitilaizeWorkspace">
+      <widget class="QPushButton" name="btnInitializeWorkspace">
        <property name="text">
         <string>Initialize...</string>
        </property>
@@ -115,7 +115,7 @@
   <tabstop>btnCommand</tabstop>
   <tabstop>leWorkspaceDir</tabstop>
   <tabstop>btnWorkspaceDir</tabstop>
-  <tabstop>btnInitilaizeWorkspace</tabstop>
+  <tabstop>btnInitializeWorkspace</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources/>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_fiberplanitdesigner.ui'
 #
-# Created: Wed Sep 25 11:30:29 2013
+# Created: Wed Sep 25 11:52:26 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,9 +68,9 @@ class Ui_FiberPlanITDesigner(object):
         self.btnWorkspaceDir = QtGui.QPushButton(FiberPlanITDesigner)
         self.btnWorkspaceDir.setObjectName(_fromUtf8("btnWorkspaceDir"))
         self.gridLayout_2.addWidget(self.btnWorkspaceDir, 1, 2, 1, 1)
-        self.btnInitilaizeWorkspace = QtGui.QPushButton(FiberPlanITDesigner)
-        self.btnInitilaizeWorkspace.setObjectName(_fromUtf8("btnInitilaizeWorkspace"))
-        self.gridLayout_2.addWidget(self.btnInitilaizeWorkspace, 1, 3, 1, 1)
+        self.btnInitializeWorkspace = QtGui.QPushButton(FiberPlanITDesigner)
+        self.btnInitializeWorkspace.setObjectName(_fromUtf8("btnInitializeWorkspace"))
+        self.gridLayout_2.addWidget(self.btnInitializeWorkspace, 1, 3, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 4, 0, 1, 1)
 
         self.retranslateUi(FiberPlanITDesigner)
@@ -80,8 +80,8 @@ class Ui_FiberPlanITDesigner(object):
         FiberPlanITDesigner.setTabOrder(self.leCommand, self.btnCommand)
         FiberPlanITDesigner.setTabOrder(self.btnCommand, self.leWorkspaceDir)
         FiberPlanITDesigner.setTabOrder(self.leWorkspaceDir, self.btnWorkspaceDir)
-        FiberPlanITDesigner.setTabOrder(self.btnWorkspaceDir, self.btnInitilaizeWorkspace)
-        FiberPlanITDesigner.setTabOrder(self.btnInitilaizeWorkspace, self.buttonBox)
+        FiberPlanITDesigner.setTabOrder(self.btnWorkspaceDir, self.btnInitializeWorkspace)
+        FiberPlanITDesigner.setTabOrder(self.btnInitializeWorkspace, self.buttonBox)
 
     def retranslateUi(self, FiberPlanITDesigner):
         FiberPlanITDesigner.setWindowTitle(_translate("FiberPlanITDesigner", "FiberPlanIT Designer Plugin config", None))
@@ -91,5 +91,5 @@ class Ui_FiberPlanITDesigner(object):
         self.lblWorkspaceDir.setText(_translate("FiberPlanITDesigner", "Workspace", None))
         self.leCommand.setPlaceholderText(_translate("FiberPlanITDesigner", "Path to executable", None))
         self.btnWorkspaceDir.setText(_translate("FiberPlanITDesigner", "Browse...", None))
-        self.btnInitilaizeWorkspace.setText(_translate("FiberPlanITDesigner", "Initialize...", None))
+        self.btnInitializeWorkspace.setText(_translate("FiberPlanITDesigner", "Initialize...", None))
 

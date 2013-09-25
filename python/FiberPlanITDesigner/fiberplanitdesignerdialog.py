@@ -32,7 +32,7 @@ class FiberPlanITDesignerDialog(QDialog, Ui_FiberPlanITDesigner):
         self.setupUi(self)
         QObject.connect(self.btnWorkspaceDir, SIGNAL("clicked()"), self.setWorkspaceDir)
         QObject.connect(self.btnCommand, SIGNAL("clicked()"), self.setExecutable)
-        QObject.connect(self.btnInitilaizeWorkspace, SIGNAL("clicked()"), self.initializeWorkspace)
+        QObject.connect(self.btnInitializeWorkspace, SIGNAL("clicked()"), self.initializeWorkspace)
 
     def on_buttonBox_accepted(self):
         # TODO? check to see if all vars are set?
