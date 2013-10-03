@@ -12,7 +12,7 @@
 name=FiberPlanIT Designer
 qgisMinimumVersion=1.8
 description=FiberPlanIT QGis Plugin
-version=1.2.3
+version=1.3.0
 author=Comsof
 email=luc.deheyn@comsof.com
 
