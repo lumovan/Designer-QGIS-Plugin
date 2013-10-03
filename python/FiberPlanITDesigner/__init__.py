@@ -31,6 +31,7 @@ def description():
 
 
 def version():
+    # Also change metadata.txt and plugins.xml!
     return "Version 1.3.0"
 
 
