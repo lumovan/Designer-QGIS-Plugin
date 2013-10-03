@@ -404,9 +404,12 @@ class FiberPlanITDesigner:
         # number of features
         nF = layer.selectedFeatureCount()
         if (nF == 0):
-        	infoString = QString("Select some elements in current <b>" + layer.name() + "</b> layer for locking/unlocking")
-        	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
-        	return
+            # Just select all features in the layer ret =
+            infoString = QString("No elements selected in current <b>" + layer.name() + "</b> layer. Lock/unlock all elements?")
+            ret = QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Cancel)
+            if (ret == QMessageBox.Cancel):
+                return
+            layer.invertSelection()
 
         selectedFeatIDs = layer.selectedFeaturesIds()
         selectedFeats = layer.selectedFeatures()
