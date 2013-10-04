@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_fiberplanitdesigner.ui'
 #
-# Created: Wed Sep 25 11:52:26 2013
+# Created: Fri Oct  4 15:38:17 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,9 @@ class Ui_FiberPlanITDesigner(object):
     def setupUi(self, FiberPlanITDesigner):
         FiberPlanITDesigner.setObjectName(_fromUtf8("FiberPlanITDesigner"))
         FiberPlanITDesigner.resize(756, 131)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/fiberplanitdesigner/icons/fiberplanit.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        FiberPlanITDesigner.setWindowIcon(icon)
         self.gridLayout = QtGui.QGridLayout(FiberPlanITDesigner)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.gridLayout_2 = QtGui.QGridLayout()
@@ -84,7 +87,7 @@ class Ui_FiberPlanITDesigner(object):
         FiberPlanITDesigner.setTabOrder(self.btnInitializeWorkspace, self.buttonBox)
 
     def retranslateUi(self, FiberPlanITDesigner):
-        FiberPlanITDesigner.setWindowTitle(_translate("FiberPlanITDesigner", "FiberPlanIT Designer Plugin config", None))
+        FiberPlanITDesigner.setWindowTitle(_translate("FiberPlanITDesigner", "FiberPlanIT Designer Plugin Configuration", None))
         self.btnCommand.setText(_translate("FiberPlanITDesigner", "Browse...", None))
         self.lblExecutable.setText(_translate("FiberPlanITDesigner", "Executable", None))
         self.leWorkspaceDir.setPlaceholderText(_translate("FiberPlanITDesigner", "Path to workspace folder", None))
@@ -93,3 +96,4 @@ class Ui_FiberPlanITDesigner(object):
         self.btnWorkspaceDir.setText(_translate("FiberPlanITDesigner", "Browse...", None))
         self.btnInitializeWorkspace.setText(_translate("FiberPlanITDesigner", "Initialize...", None))
 
+import resources_rc

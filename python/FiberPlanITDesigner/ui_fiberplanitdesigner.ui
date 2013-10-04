@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>FiberPlanIT Designer Plugin config</string>
+   <string>FiberPlanIT Designer Plugin Configuration</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/plugins/fiberplanitdesigner/icons/fiberplanit.png</normaloff>:/plugins/fiberplanitdesigner/icons/fiberplanit.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="0">
@@ -118,7 +122,9 @@
   <tabstop>btnInitializeWorkspace</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
