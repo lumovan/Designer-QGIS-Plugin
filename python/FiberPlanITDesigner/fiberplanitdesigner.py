@@ -267,7 +267,9 @@ class FiberPlanITDesigner:
         self.dlg.show()
         
     def initWorkspace(self):
-          self.callFPI('/initWorkspace')      
+        self.dlg.close() #Needs to happens first or dialog freezes
+        self.callFPI('/initWorkspace')
+        self.areaview()
 
     def nounsavededits(self):
         # check if there are any layers being edited

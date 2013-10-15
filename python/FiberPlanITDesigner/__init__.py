@@ -32,7 +32,7 @@ def description():
 
 def version():
     # Also change metadata.txt and plugins.xml!
-    return "Version 1.3.0"
+    return "Version 1.3.1"
 
 
 def icon():
