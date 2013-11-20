@@ -157,6 +157,25 @@ class FiberPlanITDesigner:
         self.toolBar.addAction(self.action_2_4)
         self.iface.addPluginToMenu(self.actiontxt, self.action_2_4)
         
+        ####### AERIAL
+        self.aerialActionMenu_txt = QCoreApplication.translate("fiberplanitdesigner", u"Aerial")
+        self.aerialActionMenu = QAction(
+            self.aerialActionMenu_txt, self.iface.mainWindow())
+        self.aerialAction1_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Aerial Connections")
+        self.aerialAction1 = QAction(
+            QIcon(":/plugins/fiberplanitdesigner/icons/aerial.png"),
+            self.aerialAction1_txt, self.iface.mainWindow())
+        self.aerialAction1.triggered.connect(self.createAerialConnections)
+        
+        self.popupMenu = QMenu(self.iface.mainWindow())
+        self.popupMenu.addAction(self.aerialAction1)
+
+        self.aerialActionMenu.setMenu(self.popupMenu)
+        #self.toolBar.addAction(self.aerialActionMenu)
+        self.iface.addPluginToMenu(self.actiontxt, self.aerialActionMenu)
+        
+        #END
+        
         self.action_2_5_txt = QCoreApplication.translate("fiberplanitdesigner", u"Process Area")
         self.action_2_5 = QAction(
             QIcon(":/plugins/fiberplanitdesigner/icons/process area.png"),
@@ -354,6 +373,11 @@ class FiberPlanITDesigner:
         if self.nounsavededits():
             self.callFPI('/createCrossings')
             self.areaview()
+    
+    def createAerialConnections(self):
+        if self.nounsavededits():
+            self.callFPI('/createAerialConnections')
+            self.areaview()
 
     def processarea(self):
         if self.nounsavededits():
@@ -386,9 +410,9 @@ class FiberPlanITDesigner:
     def lockUnlockElements(self):
         layer = self.iface.mapCanvas().currentLayer()
         if (layer == None):
-        	infoString = QString("No layer selected... Select a layer from the layer list...")
-        	QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
-        	return
+            infoString = QString("No layer selected... Select a layer from the layer list...")
+            QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
+            return
 
         provider = layer.dataProvider()
         fields = provider.fields()
@@ -396,12 +420,12 @@ class FiberPlanITDesigner:
         # Get the "LOCKED" attribute
         locked_index = provider.fieldNameIndex("LOCKED")
         if (locked_index == -1):
-        	infoString = QString("Locking not possible on selected layer. LOCKED attribute missing.")
-        	QMessageBox.warning(self.iface.mainWindow(), "Warning", infoString, QMessageBox.Ok, QMessageBox.Ok)
-        	return
+            infoString = QString("Locking not possible on selected layer. LOCKED attribute missing.")
+            QMessageBox.warning(self.iface.mainWindow(), "Warning", infoString, QMessageBox.Ok, QMessageBox.Ok)
+            return
 
         if not layer.isEditable():
-        	layer.startEditing()
+            layer.startEditing()
 
         # number of features
         nF = layer.selectedFeatureCount()
@@ -439,7 +463,7 @@ class FiberPlanITDesigner:
 
         # Change the attributes of the selected features
         for i in selectedFeatIDs:
-        	layer.changeAttributeValue(int(i), locked_index, newValue)
-        	#layer.deselect(i)
+            layer.changeAttributeValue(int(i), locked_index, newValue)
+            #layer.deselect(i)
         layer.removeSelection()
         return

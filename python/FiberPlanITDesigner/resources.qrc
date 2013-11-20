@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/plugins/fiberplanitdesigner">
+    <file>icons/aerial.png</file>
     <file>icons/blueprint.png</file>
     <file>icons/cog.png</file>
 	<file>icons/crossing.png</file>
