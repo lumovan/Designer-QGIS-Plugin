@@ -166,9 +166,16 @@ class FiberPlanITDesigner:
             QIcon(":/plugins/fiberplanitdesigner/icons/aerial.png"),
             self.aerialAction1_txt, self.iface.mainWindow())
         self.aerialAction1.triggered.connect(self.createAerialConnections)
+
+        self.aerialAction2_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Aerial Drop Connections")
+        self.aerialAction2 = QAction(
+            QIcon(":/plugins/fiberplanitdesigner/icons/aerial.png"),
+            self.aerialAction2_txt, self.iface.mainWindow())
+        self.aerialAction2.triggered.connect(self.createAerialDrops)
         
         self.popupMenu = QMenu(self.iface.mainWindow())
         self.popupMenu.addAction(self.aerialAction1)
+        self.popupMenu.addAction(self.aerialAction2)
 
         self.aerialActionMenu.setMenu(self.popupMenu)
         #self.toolBar.addAction(self.aerialActionMenu)
@@ -377,6 +384,11 @@ class FiberPlanITDesigner:
     def createAerialConnections(self):
         if self.nounsavededits():
             self.callFPI('/createAerialConnections')
+            self.areaview()
+
+    def createAerialDrops(self):
+        if self.nounsavededits():
+            self.callFPI('/createAerialDrops')
             self.areaview()
 
     def processarea(self):
