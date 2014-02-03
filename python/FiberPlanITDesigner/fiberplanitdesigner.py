@@ -42,7 +42,7 @@ class FiberPlanITDesigner:
         self.plugin_dir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + "/python/plugins/fiberplanitdesigner"
         # initialize locale
         localePath = ""
-        locale = QSettings().value("locale/userLocale").toString()[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
 
         if QFileInfo(self.plugin_dir).exists():
             localePath = self.plugin_dir + "/i18n/fiberplanitdesigner_" + locale + ".qm"
@@ -57,10 +57,10 @@ class FiberPlanITDesigner:
         self.settings = QSettings()
         self.workspacedir = ''
         if self.settings.contains('/fiberplanitdesigner/workspacepath'):
-            self.workspacedir = unicode(self.settings.value('/fiberplanitdesigner/workspacepath').toString())
+            self.workspacedir = unicode(self.settings.value('/fiberplanitdesigner/workspacepath'))
         self.command = ''
         if self.settings.contains('/fiberplanitdesigner/command'):
-            self.command = unicode(self.settings.value('/fiberplanitdesigner/command').toString())
+            self.command = unicode(self.settings.value('/fiberplanitdesigner/command'))
         QObject.connect(self.dlg, SIGNAL("workspaceDirSet(QString)"), self.setWorkspacedirDir)
         QObject.connect(self.dlg, SIGNAL("commandSet(QString)"), self.setCommand)
         QObject.connect(self.dlg, SIGNAL("workpaceInit(QString)"), self.initWorkspace)
@@ -290,8 +290,9 @@ class FiberPlanITDesigner:
     def configure2(self):
         self.dlg.leWorkspaceDir.setText(self.workspacedir)
         self.dlg.leCommand.setText(self.command)
-        self.dlg.show()
-        
+        #self.dlg.show()
+        self.dlg.exec_() # makes dialog blocking
+
     def initWorkspace(self):
         self.dlg.close() #Needs to happens first or dialog freezes
         self.callFPI('/initWorkspace')
@@ -422,7 +423,7 @@ class FiberPlanITDesigner:
     def lockUnlockElements(self):
         layer = self.iface.mapCanvas().currentLayer()
         if (layer == None):
-            infoString = QString("No layer selected... Select a layer from the layer list...")
+            infoString = "No layer selected... Select a layer from the layer list..."
             QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
             return
 
@@ -432,7 +433,7 @@ class FiberPlanITDesigner:
         # Get the "LOCKED" attribute
         locked_index = provider.fieldNameIndex("LOCKED")
         if (locked_index == -1):
-            infoString = QString("Locking not possible on selected layer. LOCKED attribute missing.")
+            infoString = "Locking not possible on selected layer. LOCKED attribute missing."
             QMessageBox.warning(self.iface.mainWindow(), "Warning", infoString, QMessageBox.Ok, QMessageBox.Ok)
             return
 
@@ -443,7 +444,7 @@ class FiberPlanITDesigner:
         nF = layer.selectedFeatureCount()
         if (nF == 0):
             # Just select all features in the layer ret
-            infoString = QString("No elements selected in current <b>" + layer.name() + "</b> layer. Lock/unlock all elements?")
+            infoString = "No elements selected in current <b>" + layer.name() + "</b> layer. Lock/unlock all elements?"
             ret = QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Cancel)
             if (ret == QMessageBox.Cancel):
                 return
@@ -469,7 +470,7 @@ class FiberPlanITDesigner:
                         newValue = falseValue
 
         if (lockedSeen and unlockedSeen):
-            infoString = QString("Both locked and unlocked elements selected. Everything will be locked.")
+            infoString = "Both locked and unlocked elements selected. Everything will be locked."
             QMessageBox.information(self.iface.mainWindow(), "Warning", infoString)
             newValue = trueValue
 
