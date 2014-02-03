@@ -376,12 +376,12 @@ class FiberPlanITDesigner:
         if self.nounsavededits():
             self.callFPI('/createPairedBuildingTrenches')
             self.areaview()
-    
+
     def createcrossings(self):
         if self.nounsavededits():
             self.callFPI('/createCrossings')
             self.areaview()
-    
+
     def createAerialConnections(self):
         if self.nounsavededits():
             self.callFPI('/createAerialConnections')
@@ -422,61 +422,56 @@ class FiberPlanITDesigner:
 
     def lockUnlockElements(self):
         layer = self.iface.mapCanvas().currentLayer()
-        if (layer == None):
-            infoString = "No layer selected... Select a layer from the layer list..."
-            QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Ok)
+        if layer == None:
+            infoString = "No layer selected... \nSelect a layer from the layer list."
+            QMessageBox.warning(self.iface.mainWindow(), "Info", infoString, QMessageBox.Ok, QMessageBox.Ok)
             return
 
-        provider = layer.dataProvider()
-        fields = provider.fields()
-
-        # Get the "LOCKED" attribute
-        locked_index = provider.fieldNameIndex("LOCKED")
-        if (locked_index == -1):
-            infoString = "Locking not possible on selected layer. LOCKED attribute missing."
+        # Get the "LOCKED" attribute index
+        locked_index = layer.dataProvider().fieldNameIndex("LOCKED")
+        if locked_index == -1:
+            infoString = "Locking not possible on selected layer. \nLOCKED attribute missing."
             QMessageBox.warning(self.iface.mainWindow(), "Warning", infoString, QMessageBox.Ok, QMessageBox.Ok)
             return
 
-        if not layer.isEditable():
-            layer.startEditing()
-
         # number of features
         nF = layer.selectedFeatureCount()
-        if (nF == 0):
-            # Just select all features in the layer ret
-            infoString = "No elements selected in current <b>" + layer.name() + "</b> layer. Lock/unlock all elements?"
-            ret = QMessageBox.warning(self.iface.mainWindow(), "-", infoString, QMessageBox.Ok, QMessageBox.Cancel)
+        if nF == 0:
+            # Just select all features in the layer rect
+            infoString = "No elements selected in current <b>" + layer.name() + "</b> layer. \nLock/unlock all elements?"
+            ret = QMessageBox.warning(self.iface.mainWindow(), "Info", infoString, QMessageBox.Ok, QMessageBox.Cancel)
             if (ret == QMessageBox.Cancel):
                 return
             layer.invertSelection()
 
-        selectedFeatIDs = layer.selectedFeaturesIds()
-        selectedFeats = layer.selectedFeatures()
+        if not layer.isEditable():
+            layer.startEditing()
 
-        trueValue = QVariant("T")
-        falseValue = QVariant("F")
+        trueValue = "T"
+        falseValue = "F"
 
         mixedLockUnlock = False
         lockedSeen = False
         unlockedSeen = False
-        for feat in selectedFeats:
-            for (k, attr) in feat.attributeMap().iteritems():
-                if (fields[k].name() == "LOCKED"):
-                    if (attr.toString() == "F"):
-                        unlockedSeen = True
-                        newValue = trueValue
-                    else:
-                        lockedSeen = True
-                        newValue = falseValue
 
-        if (lockedSeen and unlockedSeen):
-            infoString = "Both locked and unlocked elements selected. Everything will be locked."
+        selectedFeats = layer.selectedFeatures()
+        for feat in selectedFeats:
+            if feat["LOCKED"] == "F":
+                unlockedSeen = True
+                newValue = trueValue
+            else:
+                lockedSeen = True
+                newValue = falseValue
+
+        if lockedSeen and unlockedSeen:
+            infoString = "Both locked and unlocked elements selected. \nEverything will be locked."
             QMessageBox.information(self.iface.mainWindow(), "Warning", infoString)
             newValue = trueValue
 
         # Change the attributes of the selected features
-        for i in selectedFeatIDs:
-            layer.changeAttributeValue(int(i), locked_index, newValue)
-            #layer.deselect(i)
+        attr = { locked_index : newValue }
+        for feat in selectedFeats:
+            layer.dataProvider().changeAttributeValues({ feat.id() : attr })
+
         layer.removeSelection()
         return
