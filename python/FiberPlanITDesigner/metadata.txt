@@ -13,7 +13,7 @@ name=FiberPlanIT Designer
 qgisMinimumVersion=2.0
 description=FiberPlanIT QGis Plugin
 # Version: Also change __init__.py and plugins.xml!
-version=1.4.1
+version=1.4.2
 author=Comsof
 email=luc.deheyn@comsof.com
 
