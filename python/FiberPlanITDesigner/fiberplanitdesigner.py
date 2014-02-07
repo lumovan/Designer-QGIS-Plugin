@@ -160,6 +160,7 @@ class FiberPlanITDesigner:
         ####### AERIAL
         self.aerialActionMenu_txt = QCoreApplication.translate("fiberplanitdesigner", u"Aerial")
         self.aerialActionMenu = QAction(
+            QIcon(":/plugins/fiberplanitdesigner/icons/aerial.png"),
             self.aerialActionMenu_txt, self.iface.mainWindow())
         self.aerialAction1_txt = QCoreApplication.translate("fiberplanitdesigner", u"Create Aerial Connections")
         self.aerialAction1 = QAction(
