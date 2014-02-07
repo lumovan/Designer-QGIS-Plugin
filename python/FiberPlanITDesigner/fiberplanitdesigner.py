@@ -270,10 +270,15 @@ class FiberPlanITDesigner:
         self.iface.removePluginMenu(self.actiontxt, self.action_2_4)
         self.iface.removePluginMenu(self.actiontxt, self.action_2_5)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_1)
+        self.iface.removePluginMenu(self.actiontxt, self.action_3_3)
+         # lockUnlockElements is triggered by the F11
+        self.iface.unregisterMainWindowAction(self.action_3_3)
         self.iface.removePluginMenu(self.actiontxt, self.calculateAction)
         self.iface.removePluginMenu(self.actiontxt, self.action_3_5)
         self.iface.removePluginMenu(self.actiontxt, self.manageStatesAction)
         self.iface.removePluginMenu(self.actiontxt, self.action)
+        self.iface.removePluginMenu(self.actiontxt, self.aerialActionMenu)
+        del self.toolBar
 
     def setWorkspacedirDir(self, workspacedir):
         self.workspacedir = unicode(workspacedir)
