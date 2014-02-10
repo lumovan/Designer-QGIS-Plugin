@@ -32,15 +32,14 @@ def description():
 
 def version():
     # Also change metadata.txt and plugins.xml!
-    return "Version 1.3.2"
-
+    return "Version 1.4.2"
 
 def icon():
     return "icon.png"
 
 
 def qgisMinimumVersion():
-    return "1.8"
+    return "2.0"
 
 def author():
     return "Comsof"
