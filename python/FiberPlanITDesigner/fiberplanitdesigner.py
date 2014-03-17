@@ -302,7 +302,55 @@ class FiberPlanITDesigner:
     def initWorkspace(self):
         self.dlg.close() #Needs to happens first or dialog freezes
         self.callFPI('/initWorkspace')
+        # ok we have a filled workspace now
+        # with two projects: 
+        # areaview == input 
+        # and 
+        # designview == output
+        # set rendering False so during loading of project there is no map visible
+        self.iface.mapCanvas().setRenderFlag(False)
+        # load input project
         self.areaview()
+        # areaview holds a set of empty shape files which have NO crs
+        # and optionally 1 or more shapefiles with an unknown crs
+        # THAT unknown crs should be the crs for both the project and ALL layers
+        # find project crs of current _Scheme.qgs project
+        project_crs_wkt = self.iface.mapCanvas().mapRenderer().destinationCrs().toWkt()
+        QMessageBox.warning(self.iface.mainWindow(), "-", "Project crs: "+  project_crs_wkt , QMessageBox.Ok, QMessageBox.Ok)
+        # go over all layers to find layers with a known crs
+        crs = None
+        for lyr in self.iface.mapCanvas().layers():
+            crs_wkt = lyr.dataProvider().crs().toWkt()
+            if len(crs_wkt)>0:
+                crs=QgsCoordinateReferenceSystem(crs_wkt)
+                QMessageBox.warning(self.iface.mainWindow(), "-", "Layer crs: "+crs_wkt , QMessageBox.Ok, QMessageBox.Ok)
+                break # only taking the first one
+        # if none found: return. Probably we keep it 31370 and data will be that crs
+        if crs is None:
+            # nothing found
+            return
+        if project_crs_wkt == crs_wkt:
+                QMessageBox.warning(self.iface.mainWindow(), "-", "Project crs == data crs: OK" , QMessageBox.Ok, QMessageBox.Ok)
+        else:
+                QMessageBox.warning(self.iface.mainWindow(), "-", "Project crs != data crs: fixing" , QMessageBox.Ok, QMessageBox.Ok)
+        # else: set project crs and ALL layers crs to crs
+        self.reset_and_write_crs(crs)
+        # now do the same of designview/output
+        self.designview()
+        self.reset_and_write_crs(crs)
+        # cleanup by removing all layers
+        QgsMapLayerRegistry.instance().removeAllMapLayers()
+        # set rendering to True again
+        self.iface.mapCanvas().setRenderFlag(True)
+
+    def reset_and_write_crs(self, crs):
+        # set crs of project to crs
+        self.iface.mapCanvas().mapRenderer().setDestinationCrs(crs)
+        # go over ALL layers and set those to crs too
+        for lyr in self.iface.mapCanvas().layers():
+            lyr.setCrs(crs)
+        # write this project as a TARGET CRS project
+        QgsProject.instance().write()
 
     def nounsavededits(self):
         # check if there are any layers being edited
